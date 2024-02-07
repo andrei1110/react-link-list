@@ -23,17 +23,17 @@ export const LinkBox = styled.a`
         height: 42px;
         font-size: 17px;
     }
+    @media(max-width: 768px) {
+        width: 440px;
+        &:hover {
+            width: 444px;
+            height: 42px;
+        }
+    }
     @media(max-width: 501px) {
         width: 95%;
         &:hover {
             width: 96%;
-            height: 42px;
-        }
-    }
-    @media(max-width: 768px) {
-        width: 440px;
-        &:hover {
-            width: 344px;
             height: 42px;
         }
     }

@@ -19,7 +19,6 @@ export const CentralBox = styled.div`
     text-align: center;
     color: white;
     min-height: 248px;
-    // border-radius: 4px;
     padding: 24px;
     @media(max-width: 501px) {
         padding: 24px 0 0 0;
