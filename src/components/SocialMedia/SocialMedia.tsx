@@ -9,8 +9,8 @@ const SocialMedia:React.FC = () => {
     ]
     return (
         <Container>
-            {socials.map(social => (
-                <SocialIcon href={social.href} title={social.title}> {social.icon} </SocialIcon>
+            {socials.map((social, index) => (
+                <SocialIcon href={social.href} key={'social' + index} title={social.title}> {social.icon} </SocialIcon>
             ))}
         </Container>
     );

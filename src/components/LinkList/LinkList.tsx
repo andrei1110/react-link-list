@@ -10,8 +10,8 @@ const LinkList:React.FC = () => {
 
     return (
         <Container>
-            { myLinks.map(link =>
-                <Link link={link} />
+            { myLinks.map((link, index) =>
+                <Link link={link} key={'link' + index} />
             )}
         </Container>
     );

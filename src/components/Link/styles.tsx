@@ -7,9 +7,9 @@ export const LinkBox = styled.a`
     text-decoration: none;
     background-color: var(--light-gray);
     width: 680px;
-    margin-bottom: 12px;
+    margin: 0 auto 12px auto;
     height: 40px;
-    padding: 16px 12px 0 12px;
+    padding-top: 16px;
     border-radius: 8px;
     box-shadow: var(--black) 0px 3px 5px;
     text-align: center;

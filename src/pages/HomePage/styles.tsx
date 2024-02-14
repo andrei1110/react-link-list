@@ -19,10 +19,7 @@ export const CentralBox = styled.div`
     text-align: center;
     color: white;
     min-height: 248px;
-    padding: 24px;
-    @media(max-width: 501px) {
-        padding: 24px 0 0 0;
-    }
+    padding-top: 24px;
 `;
 
 export const H1 = styled.h1`

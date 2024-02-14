@@ -3,6 +3,7 @@ import { CentralBox, Container, H1, Image, SubTitle } from './styles';
 import profilePic from '../../assets/images/profile-pic.jpg';
 import LinkList from '../../components/LinkList';
 import SocialMedia from '../../components/SocialMedia';
+import Footer from '../../components/Footer';
 
 const HomePage:React.FC = () => {
     return (
@@ -14,6 +15,7 @@ const HomePage:React.FC = () => {
                 <SocialMedia />
                 <LinkList />
             </CentralBox>
+            <Footer />
         </Container>
     );
 };
