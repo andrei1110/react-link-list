@@ -2,7 +2,9 @@
 
 Created by Andrei Toledo 
 
-Using ReactJS
+Using ReactJS ❤️
+
+See [live demo](https://andreitoledo.com.br)
 
 ## What You need?
 
@@ -33,3 +35,7 @@ $ npm run build
 - React-Icons
 - TypeScript
 - DM Sans (Font)
+
+## Next steps
+
+- Create a back-end and make it free for all :)
