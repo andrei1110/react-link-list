@@ -20,7 +20,6 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Validação de senha forte
   const passwordStrength = getPasswordStrength(form.password);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -47,7 +46,12 @@ export default function SignupPage() {
 
     setLoading(true);
 
-    const result = await signupAction(form);
+    const fd = new FormData();
+    Object.entries(form).forEach(([key, value]) => {
+      fd.append(key, value);
+    });
+
+    const result = await signupAction(fd);
 
     setLoading(false);
 
@@ -62,7 +66,6 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-6 py-10">
       <div className="w-full max-w-md space-y-8">
-        {/* Card */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 30 }}
@@ -119,14 +122,12 @@ export default function SignupPage() {
               </button>
             </div>
 
-            {/* Indicador de força */}
             <PasswordStrengthBar
               score={passwordStrength.score}
               label={passwordStrength.label}
             />
           </div>
 
-          {/* Confirm senha */}
           <Input
             label="Confirmar senha"
             name="confirmPassword"
@@ -148,8 +149,6 @@ export default function SignupPage() {
     </div>
   );
 }
-
-/* COMPONENTE INPUT SIMPLES */
 
 function Input({
   label,
@@ -178,7 +177,6 @@ function Input({
   );
 }
 
-/* BARRA DE FORÇA DA SENHA */
 function PasswordStrengthBar({
   score,
   label,
@@ -206,7 +204,6 @@ function PasswordStrengthBar({
   );
 }
 
-/* FUNÇÃO DE FORÇA DA SENHA */
 function getPasswordStrength(password: string) {
   let score = 0;
 

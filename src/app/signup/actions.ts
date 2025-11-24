@@ -3,19 +3,19 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { apiRequest } from "@/lib/api";
+import { ApiResponse } from "@/types/api";
+import { UserData } from "@/types/user";
 
-type SignupState = {
-  error?: string;
-};
-
-export async function signupAction(formData: FormData): Promise<SignupState> {
+export async function signupAction(
+  formData: FormData
+): Promise<ApiResponse<UserData>> {
   const name = formData.get("name")?.toString() ?? "";
   const email = formData.get("email")?.toString() ?? "";
   const password = formData.get("password")?.toString() ?? "";
   const confirmPassword = formData.get("confirmPassword")?.toString() ?? "";
 
   if (password !== confirmPassword) {
-    return { error: "As senhas não coincidem." };
+    return { success: false, message: "As senhas não conincidem" };
   }
 
   try {
@@ -39,6 +39,9 @@ export async function signupAction(formData: FormData): Promise<SignupState> {
 
     redirect("/dashboard");
   } catch (_err) {
-    return { error: "Erro ao criar conta. Verifique seus dados." };
+    return {
+      message: "Erro ao criar conta. Verifique seus dados.",
+      success: false,
+    };
   }
 }

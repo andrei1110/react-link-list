@@ -2,35 +2,39 @@ import * as React from "react";
 import Link from "next/link";
 import clsx from "clsx";
 
-interface BaseButtonProps {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "link";
+type Variant =
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "ghost"
+  | "danger"
+  | "link";
+
+interface BaseProps {
+  variant?: Variant;
   className?: string;
-  children: React.ReactNode;
 }
 
-interface ButtonAsButtonProps
-  extends BaseButtonProps,
-    React.ButtonHTMLAttributes<HTMLButtonElement> {
-  href?: never;
-}
+type ButtonAsButtonProps = BaseProps &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className"> & {
+    href?: never;
+  };
 
-interface ButtonAsLinkProps
-  extends BaseButtonProps,
-    React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  href: string;
-}
+/* Props para <a>/<Link> */
+type ButtonAsLinkProps = BaseProps &
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "className" | "href"> & {
+    href: string;
+  };
 
 type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
 
-export function Button({
-  variant = "primary",
-  className,
-  ...props
-}: ButtonProps) {
+export function Button(props: ButtonProps) {
+  const { variant = "primary", className, ...restProps } = props as ButtonProps;
+
   const baseClasses =
     "inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold transition-all duration-200 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed";
 
-  const variants = {
+  const variants: Record<Variant, string> = {
     primary: `
       bg-brand text-black 
       hover:bg-brandHover 
@@ -38,7 +42,6 @@ export function Button({
       border border-brand
       shadow-[0_0_15px_rgba(255,140,0,0.15)]
     `,
-
     secondary: `
       bg-white/10 text-white 
       backdrop-blur-md 
@@ -46,7 +49,6 @@ export function Button({
       hover:bg-white/20 
       active:scale-[0.97]
     `,
-
     outline: `
       text-white 
       border border-white/40 
@@ -57,7 +59,6 @@ export function Button({
       active:scale-[0.97]
       shadow-sm
     `,
-
     ghost: `
       text-white 
       bg-transparent
@@ -65,14 +66,12 @@ export function Button({
       hover:bg-white/10
       active:scale-[0.97]
     `,
-
     danger: `
       bg-red-600 text-white 
       hover:bg-red-700 
       active:bg-red-800 active:scale-[0.97]
       border border-red-600
     `,
-
     link: `
       text-brand hover:text-brandHover
       underline hover:no-underline
@@ -89,14 +88,25 @@ export function Button({
   );
 
   if ("href" in props && props.href) {
-    const { href, ...rest } = props;
+    const { href, ...rest } = restProps as ButtonAsLinkProps;
     return (
-      <Link href={href} className={clsx(combined, "cursor-pointer")} {...rest}>
-        {props.children}
+      <Link
+        href={href}
+        className={combined}
+        {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
+        {(props as ButtonAsLinkProps).children}
       </Link>
     );
   }
 
-  // Botão normal
-  return <button className={combined} {...props} />;
+  const restButtonProps = restProps as ButtonAsButtonProps;
+  return (
+    <button
+      className={combined}
+      {...(restButtonProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+    >
+      {restButtonProps.children}
+    </button>
+  );
 }

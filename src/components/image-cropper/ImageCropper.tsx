@@ -22,7 +22,7 @@ export default function ImageCropper({
       image,
       crop,
       zoom,
-      croppedAreaPixels
+      croppedAreaPixels || undefined
     );
     onComplete(croppedBlob);
   };
