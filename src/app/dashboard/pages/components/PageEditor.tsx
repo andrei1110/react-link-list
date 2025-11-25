@@ -1,4 +1,3 @@
-// src/app/dashboard/pages/components/PageEditor.tsx
 "use client";
 
 import { useState, useTransition } from "react";
@@ -97,7 +96,16 @@ export default function PageEditor({ initialPage, onSave }: PageEditorProps) {
       </Section>
 
       <div className="flex justify-end">
-        <Button onClick={handleSubmit} disabled={isPending}>
+        <Button
+          className="
+          bg-brand hover:bg-brandHover 
+          text-white px-4 py-2 rounded-lg 
+          text-sm font-semibold tracking-wide
+          transition
+        "
+          onClick={handleSubmit}
+          disabled={isPending}
+        >
           {isPending ? "Salvando..." : "Salvar"}
         </Button>
       </div>

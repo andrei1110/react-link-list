@@ -16,8 +16,6 @@ export default async function UserPages() {
     redirect("login");
   }
 
-  console.log("aqui entraaa");
-
   const pages = (await apiRequest<PageData[]>(`/pages/me`, token)).data;
 
   return (

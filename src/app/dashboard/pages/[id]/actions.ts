@@ -1,4 +1,3 @@
-// src/app/dashboard/pages/[id]/actions.ts
 "use server";
 
 import { cookies } from "next/headers";
@@ -15,19 +14,10 @@ export async function updatePage(
     return { success: false, message: "Unauthorized" };
   }
 
-  const res = await apiRequest<PageData>(
-    `${process.env.API_URL}/pages/${id}`,
-    token,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-      cache: "no-store",
-    }
-  );
+  const res = await apiRequest<PageData>(`/pages/${id}`, token, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
 
   if (!res.success) {
     return {

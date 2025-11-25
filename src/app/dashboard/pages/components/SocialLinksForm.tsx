@@ -43,7 +43,16 @@ export default function SocialLinksForm({ socialLinks, onChange }: Props) {
         />
       ))}
 
-      <Button type="button" onClick={handleAdd}>
+      <Button
+        className="
+          bg-brand hover:bg-brandHover 
+          text-white px-4 py-2 rounded-lg 
+          text-sm font-semibold tracking-wide
+          transition
+        "
+        type="button"
+        onClick={handleAdd}
+      >
         Adicionar rede social
       </Button>
     </div>

@@ -19,7 +19,6 @@ export async function loginAction(_prevState: unknown, formData: FormData) {
 
     return { success: true, error: null };
   } catch (e) {
-    console.log(e);
     return { success: false, error: "E-mail ou senha incorretos", message: e };
   }
 }
