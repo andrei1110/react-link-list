@@ -8,11 +8,11 @@ export async function loginAction(_prevState: unknown, formData: FormData) {
   const password = formData.get("password") as string;
 
   try {
-    const { access_token } = await loginService(email, password);
+    const { data } = await loginService(email, password);
 
-    console.log("testeee", access_token);
+    console.log("testeee", data?.access_token);
 
-    (await cookies()).set("token", access_token, {
+    (await cookies()).set("token", data?.access_token || "", {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
