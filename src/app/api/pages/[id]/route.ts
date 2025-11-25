@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { apiRequest } from "@/lib/api";
 
 export async function DELETE(
   _req: NextRequest,
@@ -16,8 +17,9 @@ export async function DELETE(
       );
     }
 
-    const backendRes = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}`,
+    const backendRes = await apiRequest(
+      `${process.env.API_URL}/pages/${id}`,
+      token,
       {
         method: "DELETE",
         headers: {
@@ -26,12 +28,13 @@ export async function DELETE(
       }
     );
 
-    const data = await backendRes.json();
-
-    if (!backendRes.ok) {
+    if (!backendRes.success) {
       return NextResponse.json(
-        { success: false, message: data.message ?? "Erro ao excluir página" },
-        { status: backendRes.status }
+        {
+          success: false,
+          message: backendRes.message ?? "Erro ao excluir página",
+        },
+        { status: 400 }
       );
     }
 

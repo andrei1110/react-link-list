@@ -6,7 +6,7 @@ export async function apiRequest<T = unknown>(
   token?: string,
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, {
+  const res = await fetch(`${process.env.API_URL}${path}`, {
     ...options,
     headers: {
       ...(isJson(options.body) && { "Content-Type": "application/json" }),

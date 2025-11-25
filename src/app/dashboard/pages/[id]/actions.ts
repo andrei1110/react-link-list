@@ -2,8 +2,9 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { UpdatePageDto } from "@/types/page";
+import { PageData, UpdatePageDto } from "@/types/page";
 import { ApiResponse } from "@/types/api";
+import { apiRequest } from "@/lib/api";
 
 export async function updatePage(
   id: string,
@@ -14,19 +15,25 @@ export async function updatePage(
     return { success: false, message: "Unauthorized" };
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pages/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-    cache: "no-store",
-  });
+  const res = await apiRequest<PageData>(
+    `${process.env.API_URL}/pages/${id}`,
+    token,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+      cache: "no-store",
+    }
+  );
 
-  if (!res.ok) {
-    const errorText = await res.text();
-    return { success: false, message: errorText };
+  if (!res.success) {
+    return {
+      success: false,
+      message: res.message || "Erro ao atualizar página",
+    };
   }
 
   return { success: true };
