@@ -7,6 +7,10 @@ import { Button } from "@/components/ui/Button";
 import { signupAction } from "./actions";
 import { toast } from "sonner";
 
+export const metadata = {
+  title: "Cadastre-se | Konn",
+};
+
 export default function SignupPage() {
   const [form, setForm] = useState({
     name: "",

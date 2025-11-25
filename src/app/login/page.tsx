@@ -8,6 +8,10 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 
+export const metadata = {
+  title: "Login | Konn",
+};
+
 function SubmitButton() {
   const { pending } = useFormStatus();
 

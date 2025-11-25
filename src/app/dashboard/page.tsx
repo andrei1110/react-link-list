@@ -4,6 +4,10 @@ import { PageData } from "@/types/page";
 import { UserData } from "@/types/user";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "Dashboard | Konn",
+};
+
 export default async function DashboardHome() {
   const token = (await cookies()).get("token")?.value;
 
