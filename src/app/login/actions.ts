@@ -10,8 +10,6 @@ export async function loginAction(_prevState: unknown, formData: FormData) {
   try {
     const { data } = await loginService(email, password);
 
-    console.log("testeee", data);
-
     (await cookies()).set("token", data?.access_token || "", {
       httpOnly: true,
       secure: true,

@@ -1,9 +1,13 @@
 import { cookies } from "next/headers";
 import { apiRequest } from "@/lib/api";
 import { PageCard } from "./components/PageCard";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { PageData } from "@/types/page";
+import { Button } from "@/components/ui/Button";
+
+export const metadata = {
+  title: "Minhas páginas | Konn",
+};
 
 export default async function UserPages() {
   const token = (await cookies()).get("token")?.value;
@@ -12,6 +16,8 @@ export default async function UserPages() {
     redirect("login");
   }
 
+  console.log("aqui entraaa");
+
   const pages = (await apiRequest<PageData[]>(`/pages/me`, token)).data;
 
   return (
@@ -19,7 +25,7 @@ export default async function UserPages() {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold tracking-wide">Minhas Páginas</h1>
 
-        <Link
+        <Button
           href="/dashboard/pages/new"
           className="
             bg-brand hover:bg-brandHover 
@@ -29,7 +35,7 @@ export default async function UserPages() {
           "
         >
           Criar Página
-        </Link>
+        </Button>
       </div>
 
       {(pages?.length || 0) === 0 ? (

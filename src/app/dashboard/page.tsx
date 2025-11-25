@@ -3,6 +3,7 @@ import { apiRequest } from "@/lib/api";
 import { PageData } from "@/types/page";
 import { UserData } from "@/types/user";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export const metadata = {
   title: "Dashboard | Konn",
@@ -11,18 +12,13 @@ export const metadata = {
 export default async function DashboardHome() {
   const token = (await cookies()).get("token")?.value;
 
-  console.log("tokkennn", token);
-
   if (!token) {
     redirect("login");
   }
 
   const user = (await apiRequest<UserData>("/users/me", token)).data;
 
-  console.log("useeeer", user);
-
   if (!user) {
-    console.log("user", user);
     redirect("login");
   }
 
@@ -39,8 +35,13 @@ export default async function DashboardHome() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-[#111] border border-[#2A2A2A] rounded-xl p-6 shadow-xl shadow-black/40">
-          <h3 className="text-lg font-semibold mb-2">Páginas Criadas</h3>
-          <p className="text-3xl font-bold text-brand">{pages?.length || 0}</p>
+          <Link href="/dashboard/pages">
+            {" "}
+            <h3 className="text-lg font-semibold mb-2">Páginas Criadas</h3>
+            <p className="text-3xl font-bold text-brand">
+              {pages?.length || 0}
+            </p>
+          </Link>
         </div>
 
         <div className="bg-[#111] border border-[#2A2A2A] rounded-xl p-6 shadow-xl shadow-black/40">

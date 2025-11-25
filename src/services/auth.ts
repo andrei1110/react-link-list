@@ -10,6 +10,5 @@ export async function loginService(email: string, password: string) {
     }
   );
 
-  console.log("response", response);
   return response;
 }
