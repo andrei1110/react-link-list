@@ -24,6 +24,8 @@ export async function apiRequest<T = unknown>(
     throw new Error("Resposta inválida do servidor");
   }
 
+  console.log("json", json);
+
   if (!json.success) {
     throw new Error(json.message ?? "Erro desconhecido");
   }

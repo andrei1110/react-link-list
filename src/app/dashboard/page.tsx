@@ -11,13 +11,18 @@ export const metadata = {
 export default async function DashboardHome() {
   const token = (await cookies()).get("token")?.value;
 
+  console.log("tokkennn", token);
+
   if (!token) {
     redirect("login");
   }
 
   const user = (await apiRequest<UserData>("/users/me", token)).data;
 
+  console.log("useeeer", user);
+
   if (!user) {
+    console.log("user", user);
     redirect("login");
   }
 
