@@ -13,7 +13,6 @@ import { Avatar } from "@/components/ui/Avatar";
 
 export const dynamic = "force-dynamic";
 
-// mapa de ícones tipado
 const iconMap: Record<
   string,
   React.ComponentType<{ size?: number; strokeWidth?: number }>

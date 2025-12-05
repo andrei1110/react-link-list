@@ -14,6 +14,7 @@ export async function apiRequest<T = unknown>(
       ...(options.headers ?? {}),
     },
     cache: "no-store",
+    credentials: "include",
   });
 
   let json: ApiResponse<T>;
