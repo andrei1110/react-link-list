@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, FileText, LogOut } from "lucide-react";
+import { Home, FileText, LogOut, UserPen } from "lucide-react";
 
 export function Sidebar() {
   return (
@@ -21,6 +21,13 @@ export function Sidebar() {
           className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 transition"
         >
           <FileText size={18} /> Minhas Páginas
+        </Link>
+
+        <Link
+          href="/dashboard/user/edit"
+          className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 transition"
+        >
+          <UserPen size={18} /> Meu perfil
         </Link>
 
         <form action="/logout" method="post">
