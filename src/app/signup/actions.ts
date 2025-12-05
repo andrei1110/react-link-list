@@ -11,6 +11,8 @@ export async function signupAction(
 ): Promise<ApiResponse<UserData>> {
   const name = formData.get("name")?.toString() ?? "";
   const email = formData.get("email")?.toString() ?? "";
+  const country = formData.get("country")?.toString() ?? "";
+  const city = formData.get("city")?.toString() ?? "";
   const password = formData.get("password")?.toString() ?? "";
   const confirmPassword = formData.get("confirmPassword")?.toString() ?? "";
 
@@ -20,11 +22,11 @@ export async function signupAction(
 
   try {
     const result = await apiRequest<{ access_token: string }>(
-      "/auth/signup",
+      "/users",
       undefined,
       {
         method: "POST",
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, country, city, password }),
       }
     );
 
@@ -36,12 +38,14 @@ export async function signupAction(
       sameSite: "strict",
       path: "/",
     });
-
-    redirect("/dashboard");
-  } catch (_err) {
+  } catch (err) {
+    console.log("err", err);
     return {
-      message: "Erro ao criar conta. Verifique seus dados.",
+      message: `Erro ao criar conta. ${
+        (err as { message?: string }).message || "Verifique seus dados"
+      }.`,
       success: false,
     };
   }
+  redirect("/dashboard");
 }

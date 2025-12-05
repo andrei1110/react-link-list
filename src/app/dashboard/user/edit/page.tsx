@@ -24,8 +24,6 @@ export default async function EditUserPage() {
 
   const response = await apiRequest<UserApiResponse>("/users/me", token);
 
-  console.log("response", response);
-
   if (!response.data) {
     return (
       <div className="p-10 text-center">

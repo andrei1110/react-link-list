@@ -20,7 +20,8 @@ export async function apiRequest<T = unknown>(
 
   try {
     json = await res.json();
-  } catch {
+  } catch (e) {
+    console.log("error api", e);
     throw new Error("Resposta inválida do servidor");
   }
 
