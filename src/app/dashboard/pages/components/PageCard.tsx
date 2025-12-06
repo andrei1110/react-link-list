@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { PageData } from "@/types/page";
 import CardMenu from "@/components/ui/CardMenu";
@@ -32,6 +32,15 @@ export function PageCard({ page }: { page: PageData }) {
     return;
   }
 
+  const linksText = useMemo(() => {
+    if (page.links?.length > 1) {
+      return `${page.links?.length} links`;
+    } else if (page.links?.length > 0) {
+      return `${page.links?.length} link`;
+    }
+    return `Nenhum link`;
+  }, [page.links?.length]);
+
   return (
     <>
       <div
@@ -44,7 +53,6 @@ export function PageCard({ page }: { page: PageData }) {
         flex flex-col gap-2
       "
       >
-        {/* MENU */}
         <div className="absolute top-3 right-3">
           <CardMenu
             onEdit={() =>
@@ -63,7 +71,7 @@ export function PageCard({ page }: { page: PageData }) {
           </p>
 
           <div className="flex justify-between mt-3 text-sm opacity-70">
-            <span>{page.links?.length ?? 0} links</span>
+            <span>{linksText}</span>
             <span>{page.totalClicks ?? 0} cliques</span>
           </div>
         </Link>
