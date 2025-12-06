@@ -62,7 +62,10 @@ export default async function PublicPage({
         <h1 className="text-3xl font-bold drop-shadow-sm">{page.title}</h1>
 
         {page.description && (
-          <p className="opacity-80 text-base leading-relaxed">
+          <p
+            className="opacity-80 text-base leading-relaxed"
+            style={{ whiteSpace: "pre-line" }}
+          >
             {page.description}
           </p>
         )}
